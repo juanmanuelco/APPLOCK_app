@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_all_apps"
+            android:icon="@drawable/ic_home_black_24dp"
+            android:title="@string/TOD_APP" />
+        <item
+            android:id="@+id/nav_locked_apps"
+            android:icon="@drawable/ic_screen_lock_portrait_black_24dp"
+            android:title="@string/LOCK_APP" />
+        <item
+            android:id="@+id/nav_unlocked_apps"
+            android:icon="@drawable/ic_phone_android_black_24dp"
+            android:title="@string/UNLOCK_APP" />
+    </group>
+</menu>
