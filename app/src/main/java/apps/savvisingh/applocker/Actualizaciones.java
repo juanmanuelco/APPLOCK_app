@@ -80,22 +80,26 @@ public class Actualizaciones extends Service {
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String result) {
-                        JsonParser parser = new JsonParser();
-                        JsonElement elementObject = parser.parse(result);
-                        JsonArray apps_bloqueadas=elementObject.getAsJsonArray();
-                        for (int i=0; i < apps_bloqueadas.size(); i++){
-                            String nombre=apps_bloqueadas.get(i).getAsJsonObject().get("nombre").toString();
-                            String paquete= apps_bloqueadas.get(i).getAsJsonObject().get("paquete").toString();
-                            String version= apps_bloqueadas.get(i).getAsJsonObject().get("version").toString();
-                            String cod_version = apps_bloqueadas.get(i).getAsJsonObject().get("cod_version").toString();
-                            nombre=nombre.substring(1,nombre.length()-1);
-                            paquete=paquete.substring(1, paquete.length()-1);
-                            version=version.substring(1, version.length()-1);
-                            cod_version=cod_version.substring(1, cod_version.length()-1);
-                            listadoApps.add(paquete);
+                        try{
+                            JsonParser parser = new JsonParser();
+                            JsonElement elementObject = parser.parse(result);
+                            JsonArray apps_bloqueadas=elementObject.getAsJsonArray();
+                            for (int i=0; i < apps_bloqueadas.size(); i++){
+                                String nombre=apps_bloqueadas.get(i).getAsJsonObject().get("nombre").toString();
+                                String paquete= apps_bloqueadas.get(i).getAsJsonObject().get("paquete").toString();
+                                String version= apps_bloqueadas.get(i).getAsJsonObject().get("version").toString();
+                                String cod_version = apps_bloqueadas.get(i).getAsJsonObject().get("cod_version").toString();
+                                nombre=nombre.substring(1,nombre.length()-1);
+                                paquete=paquete.substring(1, paquete.length()-1);
+                                version=version.substring(1, version.length()-1);
+                                cod_version=cod_version.substring(1, cod_version.length()-1);
+                                listadoApps.add(paquete);
+                            }
+                            liberarApps(context, listadoApps);
+                        }catch (Exception e){
+                            liberarApps(context, listadoApps);
+                            stopService(new Intent(context, Actualizaciones.class));//4445f35g
                         }
-                        liberarApps(context, listadoApps);
-
                     }
                 }, new Response.ErrorListener() {
             @Override

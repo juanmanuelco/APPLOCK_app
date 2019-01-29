@@ -19,7 +19,9 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import apps.savvisingh.applocker.NEGOCIO.Funcionalidad;
@@ -27,6 +29,8 @@ import apps.savvisingh.applocker.NEGOCIO.Servidor;
 import apps.savvisingh.applocker.NEGOCIO.singletonDatos;
 import apps.savvisingh.applocker.Services.ServCheqApp;
 import apps.savvisingh.applocker.Utils.CONSTANTES;
+
+import static apps.savvisingh.applocker.NEGOCIO.Funcionalidad.liberarApps;
 
 public class InicioActivity extends AppCompatActivity {
     String serverURL= Servidor.servicio("/usuario/integrar");
@@ -185,7 +189,10 @@ public class InicioActivity extends AppCompatActivity {
                         if(result.equals("existe")) mostrarMensaje("Información", "Este dispositivo ya se encuentra administrado con el pseudonimo de "+ usuario);
                         else {
                             GuardarPreferencia("sesion", "nulo");
-                            editor.putString("sesion", "nulo");
+                            editor.putString("sesion", "nulo"); //0033glnt
+                            stopService(new Intent(InicioActivity.this, Actualizaciones.class));
+                            ArrayList<String> listadoApps= new ArrayList<>();
+                            liberarApps(context, listadoApps);
                             editor.commit();
                             permitirRegistro();
                         }

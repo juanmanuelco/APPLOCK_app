@@ -133,7 +133,7 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 alertD.dismiss();
-            }
+            } //7936lv6s
         });
         alertD.setView(dialogo_cambio);
         alertD.show();
